@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_puzzle_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
@@ -143,14 +144,63 @@ class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile>
                         MyAudioPlayer.instance.playTileMove();
                       }
                     : null,
-                icon: Image.asset(
-                  theme.dashAssetForTile(widget.tile),
+                icon: ServerImage(
+                  imgPath: theme.dashAssetForTile(widget.tile),
                 ),
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class ServerImage extends StatelessWidget {
+  final String imgPath;
+  final BoxFit? fit;
+  final double? width;
+  final double? height;
+  const ServerImage(
+      {Key? key, required this.imgPath, this.fit, this.width, this.height})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (imgPath.startsWith('http')) {
+      return CachedNetworkImage(
+        imageUrl: imgPath,
+        placeholder: (_, __) => const WallpaperPlaceholder(),
+        errorWidget: (_, __, ___) => const WallpaperPlaceholder(),
+        fit: fit,
+        width: width,
+        height: height,
+      );
+    }
+
+    return Image(
+      image: AssetImage(imgPath),
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
+      loadingBuilder: (BuildContext context, Widget child,
+          ImageChunkEvent? loadingProgress) {
+        if (loadingProgress == null) return child;
+
+        return const WallpaperPlaceholder();
+      },
+    );
+  }
+}
+
+class WallpaperPlaceholder extends StatelessWidget {
+  const WallpaperPlaceholder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.purple.withOpacity(0.5),
+      child: const Icon(Icons.wallpaper, size: 50),
     );
   }
 }

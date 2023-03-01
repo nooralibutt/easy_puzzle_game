@@ -41,5 +41,6 @@ class MyBlueDashatarTheme extends MyDashatarTheme {
   String get audioAsset => 'assets/audio/dumbbell.mp3';
 
   @override
-  String get dashAssetsDirectory => 'assets/images/dashatar/blue';
+  String get dashAssetsDirectory =>
+      'https://github.com/mhanzla80/easy_puzzle_game/raw/master/blocks';
 }
