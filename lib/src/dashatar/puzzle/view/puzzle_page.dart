@@ -263,8 +263,6 @@ class PuzzleMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themes = context.select((ThemeBloc bloc) => bloc.state.themes);
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
