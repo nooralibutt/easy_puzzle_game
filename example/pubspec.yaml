@@ -10,8 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   cupertino_icons: ^1.0.5
+  easy_puzzle_game:
+    path: ../
 
 dev_dependencies:
   flutter_test:

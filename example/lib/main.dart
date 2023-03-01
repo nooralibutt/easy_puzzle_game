@@ -1,3 +1,4 @@
+import 'package:easy_puzzle_game/easy_puzzle_game.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,9 +30,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Center(),
-    );
+    return const EasyPuzzleGameApp();
   }
 }
