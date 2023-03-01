@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:bloc/bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/simple/simple_theme.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme.dart';
+import 'package:easy_puzzle_game/src/dashatar/themes/blue_dashatar_theme.dart';
 import 'package:equatable/equatable.dart';
 
 part 'theme_event.dart';

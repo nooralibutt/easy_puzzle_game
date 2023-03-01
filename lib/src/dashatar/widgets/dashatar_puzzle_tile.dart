@@ -29,16 +29,13 @@ class MyDashatarPuzzleTile extends StatefulWidget {
     required this.tile,
     required this.state,
     AudioPlayerFactory? audioPlayer,
-  })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
-        super(key: key);
+  }) : super(key: key);
 
   /// The tile to be displayed.
   final MyTile tile;
 
   /// The state of the puzzle.
   final MyPuzzleState state;
-
-  final AudioPlayerFactory _audioPlayerFactory;
 
   @override
   State<MyDashatarPuzzleTile> createState() => MyDashatarPuzzleTileState();

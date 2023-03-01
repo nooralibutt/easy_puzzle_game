@@ -17,8 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../../simple/simple.dart';
-
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
 ///
@@ -51,7 +49,7 @@ class MyPuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
-              const MySimpleTheme(),
+              const MyBlueDashatarTheme(),
               context.read<MyDashatarThemeBloc>().state.theme,
             ],
           ),
@@ -79,39 +77,36 @@ class PuzzleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-
     /// Shuffle only if the current theme is Simple.
-    final shufflePuzzle = theme is MySimpleTheme;
 
     return Scaffold(
-      body: AnimatedContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        decoration: const BoxDecoration(color: Colors.black),
-        child: BlocListener<MyDashatarThemeBloc, MyDashatarThemeState>(
-          listener: (context, state) {
-            final dashatarTheme =
-                context.read<MyDashatarThemeBloc>().state.theme;
-            context.read<ThemeBloc>().add(ThemeUpdated(theme: dashatarTheme));
-          },
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => MyTimerBloc(
-                  ticker: const MyTicker(),
-                ),
-              ),
-              BlocProvider(
-                create: (context) => MyPuzzleBloc(4)
-                  ..add(
-                    MyPuzzleInitialized(
-                      shufflePuzzle: shufflePuzzle,
-                    ),
+      body: SafeArea(
+        child: AnimatedContainer(
+          duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+          decoration: const BoxDecoration(color: Colors.black),
+          child: BlocListener<MyDashatarThemeBloc, MyDashatarThemeState>(
+            listener: (context, state) {
+              final dashatarTheme =
+                  context.read<MyDashatarThemeBloc>().state.theme;
+              context.read<ThemeBloc>().add(ThemeUpdated(theme: dashatarTheme));
+            },
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => MyTimerBloc(
+                    ticker: const MyTicker(),
                   ),
+                ),
+                BlocProvider(
+                  create: (context) => MyPuzzleBloc(4)
+                    ..add(
+                      const MyPuzzleInitialized(shufflePuzzle: false),
+                    ),
+                ),
+              ],
+              child: const _Puzzle(
+                key: Key('puzzle_view_puzzle'),
               ),
-            ],
-            child: const _Puzzle(
-              key: Key('puzzle_view_puzzle'),
             ),
           ),
         ),
@@ -132,7 +127,7 @@ class _Puzzle extends StatelessWidget {
       builder: (context, constraints) {
         return Stack(
           children: [
-            if (theme is MySimpleTheme)
+            if (theme is MyBlueDashatarTheme)
               theme.layoutDelegate.backgroundBuilder(state),
             SingleChildScrollView(
               child: ConstrainedBox(
@@ -146,7 +141,7 @@ class _Puzzle extends StatelessWidget {
                 ),
               ),
             ),
-            if (theme is! MySimpleTheme)
+            if (theme is! MyBlueDashatarTheme)
               theme.layoutDelegate.backgroundBuilder(state),
           ],
         );
@@ -273,13 +268,6 @@ class PuzzleMenu extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ...List.generate(
-          themes.length,
-          (index) => PuzzleMenuItem(
-            theme: themes[index],
-            themeIndex: index,
-          ),
-        ),
         ResponsiveLayoutBuilder(
           small: (_, child) => const SizedBox(),
           medium: (_, child) => child!,
@@ -383,7 +371,7 @@ class PuzzleMenuItem extends StatelessWidget {
                 // Initialize the puzzle board for the newly selected theme.
                 context.read<MyPuzzleBloc>().add(
                       MyPuzzleInitialized(
-                        shufflePuzzle: theme is MySimpleTheme,
+                        shufflePuzzle: theme is MyBlueDashatarTheme,
                       ),
                     );
               },
