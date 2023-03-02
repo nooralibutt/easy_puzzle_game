@@ -135,7 +135,7 @@ class PuzzleTextStyle {
     fontWeight: PuzzleFontWeight.regular,
   );
 
-  static final _bodyTextStyle = TextStyle(
+  static const _bodyTextStyle = TextStyle(
     color: PuzzleColors.black,
     fontWeight: PuzzleFontWeight.regular,
   );

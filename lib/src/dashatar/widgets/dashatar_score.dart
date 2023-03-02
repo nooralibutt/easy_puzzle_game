@@ -2,7 +2,6 @@ import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/colors/colors.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_gap.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
-import 'package:easy_puzzle_game/src/dashatar/puzzle/bloc/puzzle_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/widgets/app_flutter_logo.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme_animations.dart';
 import 'package:easy_puzzle_game/src/dashatar/typography/text_styles.dart';
@@ -27,7 +26,6 @@ class MyDashatarScore extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme =
         context.select((MyDashatarThemeBloc bloc) => bloc.state.theme);
-    final state = context.watch<MyPuzzleBloc>().state;
     // final l10n = context.l10n;
 
     return ResponsiveLayoutBuilder(
@@ -108,7 +106,7 @@ class MyDashatarScore extends StatelessWidget {
                             color: theme.defaultColor,
                           ),
                           duration: PuzzleThemeAnimationDuration.textStyle,
-                          child: Text(''),
+                          child: const Text(''),
                         ),
                       ),
                       const ResponsiveGap(
@@ -122,7 +120,7 @@ class MyDashatarScore extends StatelessWidget {
                           color: PuzzleColors.white,
                         ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(''),
+                        child: const Text(''),
                       ),
                       const ResponsiveGap(
                         small: 24,
@@ -135,7 +133,7 @@ class MyDashatarScore extends StatelessWidget {
                           color: theme.defaultColor,
                         ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text('moves'),
+                        child: const Text('moves'),
                       ),
                       const ResponsiveGap(
                         small: 8,
@@ -159,7 +157,7 @@ class MyDashatarScore extends StatelessWidget {
                           color: PuzzleColors.white,
                         ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text('Moves'),
+                        child: const Text('Moves'),
                       ),
                     ],
                   ),

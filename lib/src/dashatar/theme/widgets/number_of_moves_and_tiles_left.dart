@@ -63,7 +63,7 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
                     color: textColor,
                   ),
                   duration: PuzzleThemeAnimationDuration.textStyle,
-                  child: Text('${numberOfMoves.toString()}'),
+                  child: Text(numberOfMoves.toString()),
                 ),
                 AnimatedDefaultTextStyle(
                   style: bodyTextStyle.copyWith(
@@ -77,7 +77,7 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
                     color: textColor,
                   ),
                   duration: PuzzleThemeAnimationDuration.textStyle,
-                  child: Text(' | '),
+                  child: const Text(' | '),
                 ),
                 AnimatedDefaultTextStyle(
                   key: const Key('number_of_moves_and_tiles_left_tiles_left'),

@@ -52,8 +52,8 @@ class MyDashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 54,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => MyDashatarThemePicker(),
-          medium: (_, child) => MyDashatarThemePicker(),
+          small: (_, child) => const MyDashatarThemePicker(),
+          medium: (_, child) => const MyDashatarThemePicker(),
           large: (_, child) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -76,7 +76,7 @@ class MyDashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
       child: ResponsiveLayoutBuilder(
         small: (_, child) => const SizedBox(),
         medium: (_, child) => const SizedBox(),
-        large: (_, child) => MyDashatarThemePicker(),
+        large: (_, child) => const MyDashatarThemePicker(),
       ),
     );
   }
@@ -92,7 +92,7 @@ class MyDashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           child: ResponsiveLayoutBuilder(
             small: (_, child) => const SizedBox(),
             medium: (_, child) => const SizedBox(),
-            large: (_, child) => MyDashatarTimer(),
+            large: (_, child) => const MyDashatarTimer(),
           ),
         ),
         Column(

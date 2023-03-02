@@ -66,7 +66,7 @@ class _MyDashatarPuzzleBoardState extends State<MyDashatarPuzzleBoard> {
                     value: context.read<AudioControlBloc>(),
                   ),
                 ],
-                child: MyDashatarShareDialog(),
+                child: const MyDashatarShareDialog(),
               ),
             );
           });

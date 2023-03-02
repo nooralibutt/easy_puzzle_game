@@ -17,10 +17,7 @@ class MyDashatarPuzzleActionButton extends StatefulWidget {
   /// {@macro dashatar_puzzle_action_button}
   const MyDashatarPuzzleActionButton(
       {Key? key, AudioPlayerFactory? audioPlayer})
-      : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
-        super(key: key);
-
-  final AudioPlayerFactory _audioPlayerFactory;
+      : super(key: key);
 
   @override
   State<MyDashatarPuzzleActionButton> createState() =>

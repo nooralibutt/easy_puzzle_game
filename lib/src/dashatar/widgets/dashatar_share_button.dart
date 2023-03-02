@@ -1,5 +1,4 @@
 import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
-import 'package:easy_puzzle_game/src/dashatar/helpers/audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/helpers/links_helper.dart';
 import 'package:easy_puzzle_game/src/dashatar/my_audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/typography/text_styles.dart';
@@ -80,9 +79,7 @@ class MyDashatarShareButton extends StatefulWidget {
     required this.title,
     required this.icon,
     required this.color,
-    AudioPlayerFactory? audioPlayer,
-  })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
-        super(key: key);
+  }) : super(key: key);
 
   /// Called when the button is tapped or otherwise activated.
   final VoidCallback onPressed;
@@ -95,8 +92,6 @@ class MyDashatarShareButton extends StatefulWidget {
 
   /// The color of this button.
   final Color color;
-
-  final AudioPlayerFactory _audioPlayerFactory;
 
   @override
   State<MyDashatarShareButton> createState() => _MyDashatarShareButtonState();
@@ -119,8 +114,8 @@ class _MyDashatarShareButtonState extends State<MyDashatarShareButton> {
         ),
         child: TextButton(
           style: TextButton.styleFrom(
+            foregroundColor: widget.color,
             padding: EdgeInsets.zero,
-            primary: widget.color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32),
             ),

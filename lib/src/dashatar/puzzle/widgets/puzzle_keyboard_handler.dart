@@ -20,15 +20,12 @@ class MyPuzzleKeyboardHandler extends StatefulWidget {
     Key? key,
     required this.child,
     AudioPlayerFactory? audioPlayer,
-  })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
-        super(key: key);
+  }) : super(key: key);
 
   /// The widget below this widget in the tree.
   ///
   /// {@macro flutter.widgets.ProxyWidget.child}
   final Widget child;
-
-  final AudioPlayerFactory _audioPlayerFactory;
 
   @override
   State createState() => _MyPuzzleKeyboardHandlerState();
