@@ -8,6 +8,7 @@ class EasyPuzzleGameApp extends StatelessWidget {
     Key? key,
     required this.title,
     required this.puzzleFullImg,
+    this.puzzleRowColumn = 3,
     required this.puzzleBlockFolderPath,
   }) : super(key: key);
 
@@ -19,22 +20,29 @@ class EasyPuzzleGameApp extends StatelessWidget {
 
   /// This is the path of puzzle folder in which all puzzle block images with numbering are present
   final String puzzleBlockFolderPath;
+
+  /// This is the puzzle difficulty
+  final int puzzleRowColumn;
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return EasyPuzzleGameController(
-              title: title,
-              puzzleFullImg: puzzleFullImg,
-              puzzleBlockFolderPath: puzzleBlockFolderPath,
-              parentContext: context,
-              child: const MyPuzzlePage());
-        }
+    return EasyPuzzleGameController(
+      title: title,
+      puzzleFullImg: puzzleFullImg,
+      puzzleBlockFolderPath: puzzleBlockFolderPath,
+      puzzleRowColumn: puzzleRowColumn,
+      parentContext: context,
+      child: FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return MyPuzzlePage(
+                controller: EasyPuzzleGameController.of(context));
+          }
 
-        return const Center(child: CircularProgressIndicator.adaptive());
-      },
-      future: _initialize(),
+          return const Center(child: CircularProgressIndicator.adaptive());
+        },
+        future: _initialize(),
+      ),
     );
   }
 

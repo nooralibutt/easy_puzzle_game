@@ -3,22 +3,24 @@
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:easy_puzzle_game/src/models/position.dart';
 import 'package:easy_puzzle_game/src/models/puzzle.dart';
 import 'package:easy_puzzle_game/src/models/tile.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class MyPuzzleBloc extends Bloc<PuzzleEvent, MyPuzzleState> {
-  MyPuzzleBloc(this._size, {this.random}) : super(const MyPuzzleState()) {
+  MyPuzzleBloc(this.context, {this.random}) : super(const MyPuzzleState()) {
     on<MyPuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
   }
 
-  final int _size;
+  final BuildContext context;
 
   final Random? random;
 
@@ -26,7 +28,9 @@ class MyPuzzleBloc extends Bloc<PuzzleEvent, MyPuzzleState> {
     MyPuzzleInitialized event,
     Emitter<MyPuzzleState> emit,
   ) {
-    final puzzle = _generatePuzzle(_size, shuffle: event.shufflePuzzle);
+    final puzzle = _generatePuzzle(
+        EasyPuzzleGameController.of(context).puzzleRowColumn,
+        shuffle: event.shufflePuzzle);
     emit(
       MyPuzzleState(
         puzzle: puzzle.sort(),
@@ -76,7 +80,8 @@ class MyPuzzleBloc extends Bloc<PuzzleEvent, MyPuzzleState> {
   }
 
   void _onPuzzleReset(PuzzleReset event, Emitter<MyPuzzleState> emit) {
-    final puzzle = _generatePuzzle(_size);
+    final puzzle =
+        _generatePuzzle(EasyPuzzleGameController.of(context).puzzleRowColumn);
     emit(
       MyPuzzleState(
         puzzle: puzzle.sort(),

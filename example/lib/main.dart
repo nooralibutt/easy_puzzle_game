@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
           'https://github.com/mhanzla80/easy_puzzle_game/raw/master/puzzle.png',
       puzzleBlockFolderPath:
           'https://github.com/mhanzla80/easy_puzzle_game/raw/master/blocks',
+      puzzleRowColumn: 4,
     );
   }
 }

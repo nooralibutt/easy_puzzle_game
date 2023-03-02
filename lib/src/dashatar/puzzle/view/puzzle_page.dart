@@ -11,6 +11,7 @@ import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme_animatio
 import 'package:easy_puzzle_game/src/dashatar/themes/blue_dashatar_theme.dart';
 import 'package:easy_puzzle_game/src/dashatar/timer/bloc/timer_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/typography/text_styles.dart';
+import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:easy_puzzle_game/src/models/ticker.dart';
 import 'package:easy_puzzle_game/src/models/tile.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,8 @@ class MyPuzzlePage extends StatelessWidget {
   /// {@macro puzzle_page}
   static const String routeName = "/PuzzlePage";
 
-  const MyPuzzlePage({Key? key}) : super(key: key);
+  final EasyPuzzleGameController controller;
+  const MyPuzzlePage({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +100,7 @@ class PuzzleView extends StatelessWidget {
                   ),
                 ),
                 BlocProvider(
-                  create: (context) => MyPuzzleBloc(4)
+                  create: (context) => MyPuzzleBloc(context)
                     ..add(
                       const MyPuzzleInitialized(shufflePuzzle: false),
                     ),
