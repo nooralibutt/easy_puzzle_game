@@ -71,11 +71,12 @@ class MyDashatarTimer extends StatelessWidget {
               ),
             ),
             Gap(iconPadding ?? 8),
-            Image.asset(
-              'assets/images/dashatar/timer_icon.png',
+            Icon(
               key: const Key('dashatar_timer_icon'),
-              width: currentIconSize.width,
-              height: currentIconSize.height,
+              Icons.timer,
+              size: currentIconSize.width,
+              color: Colors.white,
+              // height: currentIconSize.height,
             ),
           ],
         );

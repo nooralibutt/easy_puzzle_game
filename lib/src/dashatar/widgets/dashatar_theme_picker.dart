@@ -3,6 +3,8 @@ import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/helpers/audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
 import 'package:easy_puzzle_game/src/dashatar/my_audio_player.dart';
+import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_puzzle_tile.dart';
+import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -105,10 +107,11 @@ class _MyDashatarThemePickerState extends State<MyDashatarThemePicker> {
                           height: size,
                           curve: Curves.easeInOut,
                           duration: const Duration(milliseconds: 350),
-                          child: Image.asset(
-                            theme.themeAsset,
+                          child: ServerImage(
+                            imgPath: EasyPuzzleGameController.of(context)
+                                .puzzleFullImg,
                             fit: BoxFit.fill,
-                            semanticLabel: theme.semanticsLabel(context),
+                            // semanticLabel: theme.semanticsLabel(context),
                           ),
                         ),
                       ),

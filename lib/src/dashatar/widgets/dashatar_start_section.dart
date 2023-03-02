@@ -8,6 +8,7 @@ import 'package:easy_puzzle_game/src/dashatar/theme/widgets/puzzle_name.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/widgets/puzzle_title.dart';
 import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_puzzle_action_button.dart';
 import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_timer.dart';
+import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +44,7 @@ class MyDashatarStartSection extends StatelessWidget {
         const ResponsiveGap(large: 16),
         PuzzleTitle(
           key: puzzleTitleKey,
-          title: 'Puzzle Challenge',
+          title: EasyPuzzleGameController.of(context).title,
         ),
         const ResponsiveGap(
           small: 12,

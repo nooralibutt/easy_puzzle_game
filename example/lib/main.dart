@@ -30,6 +30,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const EasyPuzzleGameApp();
+    return const EasyPuzzleGameApp(
+      title: 'Puzzle',
+      puzzleFullImg:
+          'https://github.com/mhanzla80/easy_puzzle_game/raw/master/puzzle.png',
+      puzzleBlockFolderPath:
+          'https://github.com/mhanzla80/easy_puzzle_game/raw/master/blocks',
+    );
   }
 }

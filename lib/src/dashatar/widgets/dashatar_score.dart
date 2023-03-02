@@ -6,7 +6,9 @@ import 'package:easy_puzzle_game/src/dashatar/puzzle/bloc/puzzle_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/widgets/app_flutter_logo.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme_animations.dart';
 import 'package:easy_puzzle_game/src/dashatar/typography/text_styles.dart';
+import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_puzzle_tile.dart';
 import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_timer.dart';
+import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -79,8 +81,8 @@ class MyDashatarScore extends StatelessWidget {
                 Positioned(
                   left: imageOffset.dx,
                   top: imageOffset.dy,
-                  child: Image.asset(
-                    theme.successThemeAsset,
+                  child: ServerImage(
+                    imgPath: EasyPuzzleGameController.of(context).puzzleFullImg,
                     height: imageHeight,
                   ),
                 ),

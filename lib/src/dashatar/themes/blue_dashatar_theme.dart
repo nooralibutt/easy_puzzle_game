@@ -28,19 +28,17 @@ class MyBlueDashatarTheme extends MyDashatarTheme {
   Color get countdownColor => PuzzleColors.blue50;
 
   @override
-  String get themeAsset => 'assets/images/dashatar/gallery/blue.png';
+  String get themeAsset => '';
 
   @override
-  String get successThemeAsset => 'assets/images/dashatar/gallery/blue.png';
+  String get successThemeAsset => '';
 
   @override
-  String get audioControlOffAsset =>
-      'assets/images/audio_control/blue_dashatar_off.png';
+  String get audioControlOffAsset => '';
 
   @override
-  String get audioAsset => 'assets/audio/dumbbell.mp3';
+  String get audioAsset => '';
 
   @override
-  String get dashAssetsDirectory =>
-      'https://github.com/mhanzla80/easy_puzzle_game/raw/master/blocks';
+  String get dashAssetsDirectory => '';
 }

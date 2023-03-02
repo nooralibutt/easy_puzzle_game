@@ -9,6 +9,7 @@ import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.d
 import 'package:easy_puzzle_game/src/dashatar/my_audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/bloc/puzzle_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme_animations.dart';
+import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:easy_puzzle_game/src/models/tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -145,7 +146,8 @@ class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile>
                       }
                     : null,
                 icon: ServerImage(
-                  imgPath: theme.dashAssetForTile(widget.tile),
+                  imgPath:
+                      '${EasyPuzzleGameController.of(context).puzzleBlockFolderPath}/${widget.tile.value.toString()}.png',
                 ),
               ),
             ),
