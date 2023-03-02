@@ -1,12 +1,7 @@
 import 'dart:async';
 
-import 'package:easy_puzzle_game/src/dashatar/audio_control/bloc/audio_control_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/helpers/modal_helper.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/bloc/puzzle_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/timer/bloc/timer_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_share_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,28 +43,7 @@ class _MyDashatarPuzzleBoardState extends State<MyDashatarPuzzleBoard> {
       listener: (context, state) async {
         if (state.puzzleStatus == PuzzleStatus.complete) {
           _completePuzzleTimer =
-              Timer(const Duration(milliseconds: 370), () async {
-            await showAppDialog<void>(
-              context: context,
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider.value(
-                    value: context.read<MyDashatarThemeBloc>(),
-                  ),
-                  BlocProvider.value(
-                    value: context.read<MyPuzzleBloc>(),
-                  ),
-                  BlocProvider.value(
-                    value: context.read<MyTimerBloc>(),
-                  ),
-                  BlocProvider.value(
-                    value: context.read<AudioControlBloc>(),
-                  ),
-                ],
-                child: const MyDashatarShareDialog(),
-              ),
-            );
-          });
+              Timer(const Duration(milliseconds: 370), () async {});
         }
       },
       child: ResponsiveLayoutBuilder(
