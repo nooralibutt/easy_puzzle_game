@@ -1,6 +1,5 @@
 import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_puzzle_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/helpers/audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/my_audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/bloc/puzzle_bloc.dart';
@@ -33,9 +32,6 @@ class _MyDashatarPuzzleActionButtonState
 
   @override
   Widget build(BuildContext context) {
-    final theme =
-        context.select((MyDashatarThemeBloc bloc) => bloc.state.theme);
-
     final status =
         context.select((MyDashatarPuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == DashatarPuzzleStatus.loading;
@@ -76,7 +72,7 @@ class _MyDashatarPuzzleActionButtonState
 
                     MyAudioPlayer.instance.playClick();
                   },
-            textColor: isLoading ? theme.defaultColor : null,
+            textColor: isLoading ? Theme.of(context).primaryColorDark : null,
             child: Text(text),
           ),
         ),

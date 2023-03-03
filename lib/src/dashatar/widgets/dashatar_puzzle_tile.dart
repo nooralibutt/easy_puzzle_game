@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_puzzle_bloc.dart';
@@ -46,8 +44,6 @@ class MyDashatarPuzzleTile extends StatefulWidget {
 @visibleForTesting
 class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile>
     with SingleTickerProviderStateMixin {
-  late final Timer _timer;
-
   /// The controller that drives [_scale] animation.
   late AnimationController _controller;
   late Animation<double> _scale;
@@ -70,12 +66,6 @@ class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile>
 
     // Delay the initialization of the audio player for performance reasons,
     // to avoid dropping frames when the theme is changed.
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
   }
 
   @override

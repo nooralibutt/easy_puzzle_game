@@ -85,7 +85,7 @@ class PuzzleView extends StatelessWidget {
       body: SafeArea(
         child: AnimatedContainer(
           duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-          decoration: const BoxDecoration(color: Colors.black),
+          // decoration: const BoxDecoration(color: Colors.black),
           child: BlocListener<MyDashatarThemeBloc, MyDashatarThemeState>(
             listener: (context, state) {
               final dashatarTheme =
@@ -318,11 +318,10 @@ class PuzzleMenuItem extends StatelessWidget {
             width: 100,
             height: 40,
             decoration: isCurrentTheme
-                ? BoxDecoration(
+                ? const BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
                         width: 2,
-                        color: currentTheme.menuUnderlineColor,
                       ),
                     ),
                   )
@@ -378,10 +377,10 @@ class PuzzleMenuItem extends StatelessWidget {
               child: AnimatedDefaultTextStyle(
                 duration: PuzzleThemeAnimationDuration.textStyle,
                 style: PuzzleTextStyle.headline5.copyWith(
-                  color: isCurrentTheme
-                      ? currentTheme.menuActiveColor
-                      : currentTheme.menuInactiveColor,
-                ),
+                    // color: isCurrentTheme
+                    //     ? currentTheme.menuActiveColor
+                    //     : currentTheme.menuInactiveColor,
+                    ),
                 child: Text(theme.name),
               ),
             ),

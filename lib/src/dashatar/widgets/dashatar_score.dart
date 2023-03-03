@@ -1,5 +1,3 @@
-import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/colors/colors.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_gap.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/widgets/app_flutter_logo.dart';
@@ -9,7 +7,6 @@ import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_puzzle_tile.dart'
 import 'package:easy_puzzle_game/src/dashatar/widgets/dashatar_timer.dart';
 import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template dashatar_score}
 /// Displays the score of the solved Dashatar puzzle.
@@ -24,10 +21,6 @@ class MyDashatarScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme =
-        context.select((MyDashatarThemeBloc bloc) => bloc.state.theme);
-    // final l10n = context.l10n;
-
     return ResponsiveLayoutBuilder(
       small: (_, child) => child!,
       medium: (_, child) => child!,
@@ -70,10 +63,10 @@ class MyDashatarScore extends StatelessWidget {
         return ClipRRect(
           key: const Key('dashatar_score'),
           borderRadius: BorderRadius.circular(22),
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: height,
-            color: theme.backgroundColor,
+            // color: theme.backgroundColor,
             child: Stack(
               children: [
                 Positioned(
@@ -103,8 +96,8 @@ class MyDashatarScore extends StatelessWidget {
                         width: completedTextWidth,
                         child: AnimatedDefaultTextStyle(
                           style: PuzzleTextStyle.headline5.copyWith(
-                            color: theme.defaultColor,
-                          ),
+                              // color: theme.defaultColor,
+                              ),
                           duration: PuzzleThemeAnimationDuration.textStyle,
                           child: const Text(''),
                         ),
@@ -117,8 +110,8 @@ class MyDashatarScore extends StatelessWidget {
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_well_done'),
                         style: wellDoneTextStyle.copyWith(
-                          color: PuzzleColors.white,
-                        ),
+                            // color: PuzzleColors.white,
+                            ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
                         child: const Text(''),
                       ),
@@ -130,8 +123,8 @@ class MyDashatarScore extends StatelessWidget {
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_score'),
                         style: PuzzleTextStyle.headline5.copyWith(
-                          color: theme.defaultColor,
-                        ),
+                            // color: theme.defaultColor,
+                            ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
                         child: const Text('moves'),
                       ),
@@ -154,8 +147,8 @@ class MyDashatarScore extends StatelessWidget {
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_number_of_moves'),
                         style: numberOfMovesTextStyle.copyWith(
-                          color: PuzzleColors.white,
-                        ),
+                            // color: PuzzleColors.white,
+                            ),
                         duration: PuzzleThemeAnimationDuration.textStyle,
                         child: const Text('Moves'),
                       ),

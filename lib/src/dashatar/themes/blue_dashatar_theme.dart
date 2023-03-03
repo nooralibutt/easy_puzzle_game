@@ -1,4 +1,3 @@
-import 'package:easy_puzzle_game/src/dashatar/colors/colors.dart';
 import 'package:easy_puzzle_game/src/dashatar/themes/dashatar_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -11,21 +10,6 @@ class MyBlueDashatarTheme extends MyDashatarTheme {
 
   @override
   String semanticsLabel(BuildContext context) => '';
-
-  @override
-  Color get backgroundColor => PuzzleColors.bluePrimary;
-
-  @override
-  Color get defaultColor => PuzzleColors.blue90;
-
-  @override
-  Color get buttonColor => PuzzleColors.blue50;
-
-  @override
-  Color get menuInactiveColor => PuzzleColors.blue50;
-
-  @override
-  Color get countdownColor => PuzzleColors.blue50;
 
   @override
   String get themeAsset => '';
@@ -41,4 +25,48 @@ class MyBlueDashatarTheme extends MyDashatarTheme {
 
   @override
   String get dashAssetsDirectory => '';
+
+  @override
+  // TODO: implement backgroundColor
+  Color get backgroundColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement buttonColor
+  Color get buttonColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement countdownColor
+  Color get countdownColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement defaultColor
+  Color get defaultColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement menuInactiveColor
+  Color get menuInactiveColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement hoverColor
+  Color get hoverColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement menuActiveColor
+  Color get menuActiveColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement menuUnderlineColor
+  Color get menuUnderlineColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement nameColor
+  Color get nameColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement pressedColor
+  Color get pressedColor => throw UnimplementedError();
+
+  @override
+  // TODO: implement titleColor
+  Color get titleColor => throw UnimplementedError();
 }

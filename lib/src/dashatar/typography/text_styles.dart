@@ -1,4 +1,3 @@
-import 'package:easy_puzzle_game/src/dashatar/colors/colors.dart';
 import 'package:easy_puzzle_game/src/dashatar/typography/font_weights.dart';
 import 'package:flutter/widgets.dart';
 
@@ -131,12 +130,12 @@ class PuzzleTextStyle {
 
   static const _baseTextStyle = TextStyle(
     fontFamily: 'GoogleSans',
-    color: PuzzleColors.black,
+    // color: PuzzleColors.black,
     fontWeight: PuzzleFontWeight.regular,
   );
 
   static const _bodyTextStyle = TextStyle(
-    color: PuzzleColors.black,
+    // color: PuzzleColors.black,
     fontWeight: PuzzleFontWeight.regular,
   );
 }

@@ -1,8 +1,6 @@
-import 'package:easy_puzzle_game/src/dashatar/colors/colors.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme_animations.dart';
 import 'package:easy_puzzle_game/src/dashatar/timer/bloc/timer_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/typography/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -43,11 +41,6 @@ class MyDashatarTimer extends StatelessWidget {
       medium: (_, child) => child!,
       large: (_, child) => child!,
       child: (currentSize) {
-        final currentTextStyle = textStyle ??
-            (currentSize == ResponsiveLayoutSize.small
-                ? PuzzleTextStyle.headline4
-                : PuzzleTextStyle.headline3);
-
         final currentIconSize = iconSize ??
             (currentSize == ResponsiveLayoutSize.small
                 ? const Size(28, 28)
@@ -60,9 +53,7 @@ class MyDashatarTimer extends StatelessWidget {
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
           children: [
             AnimatedDefaultTextStyle(
-              style: currentTextStyle.copyWith(
-                color: PuzzleColors.white,
-              ),
+              style: Theme.of(context).textTheme.headlineSmall!,
               duration: PuzzleThemeAnimationDuration.textStyle,
               child: Text(
                 _formatDuration(timeElapsed),
@@ -75,7 +66,7 @@ class MyDashatarTimer extends StatelessWidget {
               key: const Key('dashatar_timer_icon'),
               Icons.timer,
               size: currentIconSize.width,
-              color: Colors.white,
+              // color: Colors.white,
               // height: currentIconSize.height,
             ),
           ],
