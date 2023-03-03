@@ -148,12 +148,8 @@ class _MyDashatarCountdownSecondsToBeginState
         opacity: inOpacity,
         child: ScaleTransition(
           scale: inScale,
-          child: Text(
-            widget.secondsToBegin.toString(),
-            style: PuzzleTextStyle.countdownTime.copyWith(
-                // color: theme.countdownColor,
-                ),
-          ),
+          child: Text(widget.secondsToBegin.toString(),
+              style: PuzzleTextStyle.countdownTime),
         ),
       ),
     );
@@ -242,7 +238,6 @@ class _MyDashatarCountdownGoState extends State<MyDashatarCountdownGo>
                 'puzzle',
                 style: PuzzleTextStyle.countdownTime.copyWith(
                   fontSize: 100,
-                  // color: theme.defaultColor,
                 ),
               ),
             ),

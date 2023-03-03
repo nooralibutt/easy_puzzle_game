@@ -66,8 +66,6 @@ class MyDashatarTimer extends StatelessWidget {
               key: const Key('dashatar_timer_icon'),
               Icons.timer,
               size: currentIconSize.width,
-              // color: Colors.white,
-              // height: currentIconSize.height,
             ),
           ],
         );

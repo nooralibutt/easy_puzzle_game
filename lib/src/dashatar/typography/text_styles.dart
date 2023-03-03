@@ -130,12 +130,10 @@ class PuzzleTextStyle {
 
   static const _baseTextStyle = TextStyle(
     fontFamily: 'GoogleSans',
-    // color: PuzzleColors.black,
     fontWeight: PuzzleFontWeight.regular,
   );
 
   static const _bodyTextStyle = TextStyle(
-    // color: PuzzleColors.black,
     fontWeight: PuzzleFontWeight.regular,
   );
 }

@@ -66,7 +66,6 @@ class MyDashatarScore extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             height: height,
-            // color: theme.backgroundColor,
             child: Stack(
               children: [
                 Positioned(
@@ -95,9 +94,7 @@ class MyDashatarScore extends StatelessWidget {
                         key: const Key('dashatar_score_completed'),
                         width: completedTextWidth,
                         child: AnimatedDefaultTextStyle(
-                          style: PuzzleTextStyle.headline5.copyWith(
-                              // color: theme.defaultColor,
-                              ),
+                          style: PuzzleTextStyle.headline5,
                           duration: PuzzleThemeAnimationDuration.textStyle,
                           child: const Text(''),
                         ),
@@ -109,9 +106,7 @@ class MyDashatarScore extends StatelessWidget {
                       ),
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_well_done'),
-                        style: wellDoneTextStyle.copyWith(
-                            // color: PuzzleColors.white,
-                            ),
+                        style: wellDoneTextStyle,
                         duration: PuzzleThemeAnimationDuration.textStyle,
                         child: const Text(''),
                       ),
@@ -122,9 +117,7 @@ class MyDashatarScore extends StatelessWidget {
                       ),
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_score'),
-                        style: PuzzleTextStyle.headline5.copyWith(
-                            // color: theme.defaultColor,
-                            ),
+                        style: PuzzleTextStyle.headline5,
                         duration: PuzzleThemeAnimationDuration.textStyle,
                         child: const Text('moves'),
                       ),
@@ -146,9 +139,7 @@ class MyDashatarScore extends StatelessWidget {
                       ),
                       AnimatedDefaultTextStyle(
                         key: const Key('dashatar_score_number_of_moves'),
-                        style: numberOfMovesTextStyle.copyWith(
-                            // color: PuzzleColors.white,
-                            ),
+                        style: numberOfMovesTextStyle,
                         duration: PuzzleThemeAnimationDuration.textStyle,
                         child: const Text('Moves'),
                       ),
