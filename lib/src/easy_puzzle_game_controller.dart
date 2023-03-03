@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EasyPuzzleGameController extends InheritedWidget {
   const EasyPuzzleGameController({
     super.key,
-    required this.title,
+    this.title,
     required super.child,
     required this.puzzleFullImg,
     required this.puzzleRowColumn,
@@ -12,7 +12,7 @@ class EasyPuzzleGameController extends InheritedWidget {
   });
 
   /// This is the main title text
-  final String title;
+  final String? title;
 
   /// This is the full and complete puzzle image
   final String puzzleFullImg;

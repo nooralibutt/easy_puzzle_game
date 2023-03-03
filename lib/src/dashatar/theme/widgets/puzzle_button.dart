@@ -1,7 +1,6 @@
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme_animations.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/widgets/animated_text_button.dart';
-import 'package:easy_puzzle_game/src/dashatar/typography/text_styles.dart';
 import 'package:flutter/material.dart';
 
 /// {@template puzzle_button}
@@ -41,7 +40,6 @@ class PuzzleButton extends StatelessWidget {
         duration: PuzzleThemeAnimationDuration.textStyle,
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
-          textStyle: PuzzleTextStyle.headline5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),

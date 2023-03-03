@@ -38,43 +38,37 @@ class _MyDashatarPuzzleActionButtonState
     final isStarted = status == DashatarPuzzleStatus.started;
 
     final text =
-        isStarted ? 'Restart' : (isLoading ? 'GetReady..' : 'Start Game');
+        isStarted ? 'Restart' : (isLoading ? 'Getting Ready..' : 'Start Game');
 
     return AudioControlListener(
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
-        child: Tooltip(
-          key: ValueKey(status),
-          message: isStarted ? 'Start Game' : '',
-          verticalOffset: 40,
-          child: PuzzleButton(
-            onPressed: isLoading
-                ? null
-                : () async {
-                    //Todo: EasyServicesManager.instance.showCountedInterstitialAd();
-                    final hasStarted = status == DashatarPuzzleStatus.started;
+        child: PuzzleButton(
+          onPressed: isLoading
+              ? null
+              : () async {
+                  //Todo: EasyServicesManager.instance.showCountedInterstitialAd();
+                  final hasStarted = status == DashatarPuzzleStatus.started;
 
-                    // Reset the timer and the countdown.
-                    context.read<MyTimerBloc>().add(const MyTimerReset());
-                    context.read<MyDashatarPuzzleBloc>().add(
-                          MyDashatarCountdownReset(
-                            secondsToBegin: hasStarted ? 5 : 3,
-                          ),
+                  // Reset the timer and the countdown.
+                  context.read<MyTimerBloc>().add(const MyTimerReset());
+                  context.read<MyDashatarPuzzleBloc>().add(
+                        MyDashatarCountdownReset(
+                          secondsToBegin: hasStarted ? 5 : 3,
+                        ),
+                      );
+
+                  // Initialize the puzzle board to show the initial puzzle
+                  // (unshuffled) before the countdown completes.
+                  if (hasStarted) {
+                    context.read<MyPuzzleBloc>().add(
+                          const MyPuzzleInitialized(shufflePuzzle: false),
                         );
+                  }
 
-                    // Initialize the puzzle board to show the initial puzzle
-                    // (unshuffled) before the countdown completes.
-                    if (hasStarted) {
-                      context.read<MyPuzzleBloc>().add(
-                            const MyPuzzleInitialized(shufflePuzzle: false),
-                          );
-                    }
-
-                    MyAudioPlayer.instance.playClick();
-                  },
-            textColor: isLoading ? Theme.of(context).primaryColorDark : null,
-            child: Text(text),
-          ),
+                  MyAudioPlayer.instance.playClick();
+                },
+          child: Text(text),
         ),
       ),
     );

@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 class EasyPuzzleGameApp extends StatelessWidget {
   const EasyPuzzleGameApp({
     Key? key,
-    required this.title,
+    this.title,
     required this.puzzleFullImg,
     this.puzzleRowColumn = 3,
     required this.puzzleBlockFolderPath,
   }) : super(key: key);
 
   /// This is the main title text
-  final String title;
+  final String? title;
 
   /// This is the full and complete puzzle image
   final String puzzleFullImg;
