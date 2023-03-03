@@ -41,11 +41,13 @@ class MyDashatarStartSection extends StatelessWidget {
         PuzzleName(
           key: puzzleNameKey,
         ),
-        const ResponsiveGap(large: 16),
-        PuzzleTitle(
-          key: puzzleTitleKey,
-          title: EasyPuzzleGameController.of(context).title,
-        ),
+        if (EasyPuzzleGameController.of(context).title != null)
+          const ResponsiveGap(large: 16),
+        if (EasyPuzzleGameController.of(context).title != null)
+          PuzzleTitle(
+            key: puzzleTitleKey,
+            title: EasyPuzzleGameController.of(context).title!,
+          ),
         const ResponsiveGap(
           small: 12,
           medium: 16,

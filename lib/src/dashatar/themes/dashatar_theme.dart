@@ -1,4 +1,3 @@
-import 'package:easy_puzzle_game/src/dashatar/colors/colors.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/dashatar_puzzle_layout_delegate.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/puzzle_layout_delegate.dart';
 import 'package:easy_puzzle_game/src/dashatar/theme/themes/puzzle_theme.dart';
@@ -24,25 +23,7 @@ abstract class MyDashatarTheme extends PuzzleTheme {
   bool get hasTimer => true;
 
   @override
-  Color get nameColor => PuzzleColors.white;
-
-  @override
-  Color get titleColor => PuzzleColors.white;
-
-  @override
-  Color get hoverColor => PuzzleColors.black2;
-
-  @override
-  Color get pressedColor => PuzzleColors.white2;
-
-  @override
   bool get isLogoColored => false;
-
-  @override
-  Color get menuActiveColor => PuzzleColors.white;
-
-  @override
-  Color get menuUnderlineColor => PuzzleColors.white;
 
   @override
   PuzzleLayoutDelegate get layoutDelegate =>

@@ -47,8 +47,7 @@ class _AnimatedTextButtonState
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: _style!.evaluate(animation),
+    return ElevatedButton(
       onPressed: widget.onPressed,
       child: widget.child,
     );

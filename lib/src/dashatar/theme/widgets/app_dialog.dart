@@ -1,4 +1,3 @@
-import 'package:easy_puzzle_game/src/dashatar/colors/colors.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +33,6 @@ class AppDialog extends StatelessWidget {
 
         return Dialog(
           clipBehavior: Clip.hardEdge,
-          backgroundColor: PuzzleColors.white,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(12),

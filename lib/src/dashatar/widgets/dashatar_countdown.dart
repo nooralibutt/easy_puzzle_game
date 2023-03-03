@@ -1,6 +1,5 @@
 import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_puzzle_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/helpers/audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
 import 'package:easy_puzzle_game/src/dashatar/my_audio_player.dart';
@@ -143,21 +142,14 @@ class _MyDashatarCountdownSecondsToBeginState
 
   @override
   Widget build(BuildContext context) {
-    final theme =
-        context.select((MyDashatarThemeBloc bloc) => bloc.state.theme);
-
     return FadeTransition(
       opacity: outOpacity,
       child: FadeTransition(
         opacity: inOpacity,
         child: ScaleTransition(
           scale: inScale,
-          child: Text(
-            widget.secondsToBegin.toString(),
-            style: PuzzleTextStyle.countdownTime.copyWith(
-              color: theme.countdownColor,
-            ),
-          ),
+          child: Text(widget.secondsToBegin.toString(),
+              style: PuzzleTextStyle.countdownTime),
         ),
       ),
     );
@@ -232,9 +224,6 @@ class _MyDashatarCountdownGoState extends State<MyDashatarCountdownGo>
 
   @override
   Widget build(BuildContext context) {
-    final theme =
-        context.select((MyDashatarThemeBloc bloc) => bloc.state.theme);
-
     return Padding(
       padding: const EdgeInsets.only(top: 101),
       child: FadeTransition(
@@ -249,7 +238,6 @@ class _MyDashatarCountdownGoState extends State<MyDashatarCountdownGo>
                 'puzzle',
                 style: PuzzleTextStyle.countdownTime.copyWith(
                   fontSize: 100,
-                  color: theme.defaultColor,
                 ),
               ),
             ),

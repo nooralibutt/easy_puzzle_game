@@ -1,6 +1,5 @@
 import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_puzzle_bloc.dart';
-import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_theme_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/helpers/audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/my_audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/bloc/puzzle_bloc.dart';
@@ -33,52 +32,43 @@ class _MyDashatarPuzzleActionButtonState
 
   @override
   Widget build(BuildContext context) {
-    final theme =
-        context.select((MyDashatarThemeBloc bloc) => bloc.state.theme);
-
     final status =
         context.select((MyDashatarPuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == DashatarPuzzleStatus.loading;
     final isStarted = status == DashatarPuzzleStatus.started;
 
     final text =
-        isStarted ? 'Restart' : (isLoading ? 'GetReady..' : 'Start Game');
+        isStarted ? 'Restart' : (isLoading ? 'Getting Ready..' : 'Start Game');
 
     return AudioControlListener(
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
-        child: Tooltip(
-          key: ValueKey(status),
-          message: isStarted ? 'Start Game' : '',
-          verticalOffset: 40,
-          child: PuzzleButton(
-            onPressed: isLoading
-                ? null
-                : () async {
-                    //Todo: EasyServicesManager.instance.showCountedInterstitialAd();
-                    final hasStarted = status == DashatarPuzzleStatus.started;
+        child: PuzzleButton(
+          onPressed: isLoading
+              ? null
+              : () async {
+                  //Todo: EasyServicesManager.instance.showCountedInterstitialAd();
+                  final hasStarted = status == DashatarPuzzleStatus.started;
 
-                    // Reset the timer and the countdown.
-                    context.read<MyTimerBloc>().add(const MyTimerReset());
-                    context.read<MyDashatarPuzzleBloc>().add(
-                          MyDashatarCountdownReset(
-                            secondsToBegin: hasStarted ? 5 : 3,
-                          ),
+                  // Reset the timer and the countdown.
+                  context.read<MyTimerBloc>().add(const MyTimerReset());
+                  context.read<MyDashatarPuzzleBloc>().add(
+                        MyDashatarCountdownReset(
+                          secondsToBegin: hasStarted ? 5 : 3,
+                        ),
+                      );
+
+                  // Initialize the puzzle board to show the initial puzzle
+                  // (unshuffled) before the countdown completes.
+                  if (hasStarted) {
+                    context.read<MyPuzzleBloc>().add(
+                          const MyPuzzleInitialized(shufflePuzzle: false),
                         );
+                  }
 
-                    // Initialize the puzzle board to show the initial puzzle
-                    // (unshuffled) before the countdown completes.
-                    if (hasStarted) {
-                      context.read<MyPuzzleBloc>().add(
-                            const MyPuzzleInitialized(shufflePuzzle: false),
-                          );
-                    }
-
-                    MyAudioPlayer.instance.playClick();
-                  },
-            textColor: isLoading ? theme.defaultColor : null,
-            child: Text(text),
-          ),
+                  MyAudioPlayer.instance.playClick();
+                },
+          child: Text(text),
         ),
       ),
     );
