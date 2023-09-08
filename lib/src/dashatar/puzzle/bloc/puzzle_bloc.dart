@@ -1,7 +1,11 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:math';
-
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:image/image.dart' as img;
+import 'dart:ui' as ui;
 import 'package:bloc/bloc.dart';
 import 'package:easy_puzzle_game/src/easy_puzzle_game_controller.dart';
 import 'package:easy_puzzle_game/src/models/position.dart';
@@ -15,7 +19,9 @@ part 'puzzle_state.dart';
 
 class MyPuzzleBloc extends Bloc<PuzzleEvent, MyPuzzleState> {
   MyPuzzleBloc(this.context, {this.random}) : super(const MyPuzzleState()) {
-    on<MyPuzzleInitialized>(_onPuzzleInitialized);
+    on<MyPuzzleInitialized>((event,emit) async {
+      await _onPuzzleInitialized(event, emit);
+    });
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
   }
@@ -23,11 +29,15 @@ class MyPuzzleBloc extends Bloc<PuzzleEvent, MyPuzzleState> {
   final BuildContext context;
 
   final Random? random;
+  late List<Uint8List?> images ;
 
-  void _onPuzzleInitialized(
+
+  Future<void> _onPuzzleInitialized(
     MyPuzzleInitialized event,
     Emitter<MyPuzzleState> emit,
-  ) {
+  ) async{
+    images = await cropImage();
+
     final puzzle = _generatePuzzle(
         EasyPuzzleGameController.of(context).puzzleRowColumn,
         shuffle: event.shufflePuzzle);
@@ -142,6 +152,57 @@ class MyPuzzleBloc extends Bloc<PuzzleEvent, MyPuzzleState> {
 
   /// Build a list of tiles - giving each tile their correct position and a
   /// current position.
+  Future<List<Uint8List>> cropImage() async{
+    final String image = EasyPuzzleGameController.of(context).puzzleFullImg;
+    final int count = EasyPuzzleGameController.of(context).puzzleRowColumn;
+
+    final List<Uint8List> images = [];
+    final data = await rootBundle.load(image);
+
+    final buffer = await ui.ImmutableBuffer.fromUint8List(
+        data.buffer.asUint8List());
+
+    final id = await ui.ImageDescriptor.encoded(buffer);
+    final codec = await id.instantiateCodec(
+        targetHeight: id.height,
+        targetWidth: id.width);
+
+    final fi = await codec.getNextFrame();
+
+    final uiImage = fi.image;
+    final uiBytes = await uiImage.toByteData();
+
+    final assetImage = img.Image.fromBytes(width: id.width, height: id.height,
+        bytes: uiBytes!.buffer, numChannels: 4);
+
+
+
+    try{
+      for(int i = 0; i < count ; i++){
+        for(int j = 0 ; j < count ; j++){
+
+          if(j ==  count - 1 && i == count - 1){
+
+          }else{
+            final int cropSquareSize = (assetImage.width + assetImage.height) ~/ (count  + count);
+            final newCommand = img.copyCrop(assetImage,x: j * cropSquareSize, y: i * cropSquareSize, width: cropSquareSize, height: cropSquareSize);
+            images.add(img.encodeJpg(newCommand));
+          }
+
+          print("images.length");
+          print(images.length);
+
+
+
+        }
+      }
+    }catch(e){
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+    return images;
+  }
   List<MyTile> _getTileListFromPositions(
     int size,
     List<MyPosition> correctPositions,
@@ -149,19 +210,21 @@ class MyPuzzleBloc extends Bloc<PuzzleEvent, MyPuzzleState> {
   ) {
     final whitespacePosition = MyPosition(x: size, y: size);
     return [
-      for (int i = 1; i <= size * size; i++)
-        if (i == size * size)
+      for (int i = 0; i < size * size; i++)
+        if (i == (size * size) - 1)
           MyTile(
             value: i,
             correctPosition: whitespacePosition,
-            currentPosition: currentPositions[i - 1],
+            currentPosition: currentPositions[i],
             isWhitespace: true,
+
           )
         else
           MyTile(
             value: i,
-            correctPosition: correctPositions[i - 1],
-            currentPosition: currentPositions[i - 1],
+            correctPosition: correctPositions[i ],
+            image: images[i],
+            currentPosition: currentPositions[i ],
           )
     ];
   }

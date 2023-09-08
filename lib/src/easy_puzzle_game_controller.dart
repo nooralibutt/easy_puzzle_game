@@ -7,7 +7,6 @@ class EasyPuzzleGameController extends InheritedWidget {
     required super.child,
     required this.puzzleFullImg,
     required this.puzzleRowColumn,
-    required this.puzzleBlockFolderPath,
     required this.parentContext,
   });
 
@@ -18,7 +17,6 @@ class EasyPuzzleGameController extends InheritedWidget {
   final String puzzleFullImg;
 
   /// This is the path of puzzle folder in which all puzzle block images with numbering are present
-  final String puzzleBlockFolderPath;
 
   /// This is the puzzle difficulty
   final int puzzleRowColumn;

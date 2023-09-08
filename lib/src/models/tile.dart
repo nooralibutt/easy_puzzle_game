@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:easy_puzzle_game/src/models/position.dart';
 import 'package:equatable/equatable.dart';
 
@@ -10,11 +12,14 @@ class MyTile extends Equatable {
     required this.value,
     required this.correctPosition,
     required this.currentPosition,
+     this.image,
     this.isWhitespace = false,
   });
 
   /// Value representing the correct position of [MyTile] in a list.
   final int value;
+
+  final Uint8List? image;
 
   /// The correct 2D [MyPosition] of the [MyTile]. All tiles must be in their
   /// correct position to complete the puzzle.
@@ -32,6 +37,7 @@ class MyTile extends Equatable {
       value: value,
       correctPosition: correctPosition,
       currentPosition: currentPosition,
+      image: image,
       isWhitespace: isWhitespace,
     );
   }

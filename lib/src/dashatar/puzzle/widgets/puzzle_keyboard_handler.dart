@@ -19,7 +19,6 @@ class MyPuzzleKeyboardHandler extends StatefulWidget {
   const MyPuzzleKeyboardHandler({
     Key? key,
     required this.child,
-    AudioPlayerFactory? audioPlayer,
   }) : super(key: key);
 
   /// The widget below this widget in the tree.
@@ -67,25 +66,22 @@ class _MyPuzzleKeyboardHandlerState extends State<MyPuzzleKeyboardHandler> {
 
       if (tile != null) {
         context.read<MyPuzzleBloc>().add(TileTapped(tile));
-        MyAudioPlayer.instance.playTileMove();
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return AudioControlListener(
-      child: RawKeyboardListener(
-        focusNode: _focusNode,
-        onKey: _handleKeyEvent,
-        child: Builder(
-          builder: (context) {
-            if (!_focusNode.hasFocus) {
-              FocusScope.of(context).requestFocus(_focusNode);
-            }
-            return widget.child;
-          },
-        ),
+    return RawKeyboardListener(
+      focusNode: _focusNode,
+      onKey: _handleKeyEvent,
+      child: Builder(
+        builder: (context) {
+          if (!_focusNode.hasFocus) {
+            FocusScope.of(context).requestFocus(_focusNode);
+          }
+          return widget.child;
+        },
       ),
     );
   }

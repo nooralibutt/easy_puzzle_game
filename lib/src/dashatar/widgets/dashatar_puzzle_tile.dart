@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_puzzle_bloc.dart';
@@ -27,7 +30,6 @@ class MyDashatarPuzzleTile extends StatefulWidget {
     Key? key,
     required this.tile,
     required this.state,
-    AudioPlayerFactory? audioPlayer,
   }) : super(key: key);
 
   /// The tile to be displayed.
@@ -42,8 +44,7 @@ class MyDashatarPuzzleTile extends StatefulWidget {
 
 /// The state of [MyDashatarPuzzleTile].
 @visibleForTesting
-class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile>
-    with SingleTickerProviderStateMixin {
+class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile> with SingleTickerProviderStateMixin {
   /// The controller that drives [_scale] animation.
   late AnimationController _controller;
   late Animation<double> _scale;
@@ -71,71 +72,60 @@ class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile>
   @override
   Widget build(BuildContext context) {
     final size = widget.state.puzzle.getDimension();
-    final status =
-        context.select((MyDashatarPuzzleBloc bloc) => bloc.state.status);
+    final status = context.select((MyDashatarPuzzleBloc bloc) => bloc.state.status);
     final hasStarted = status == DashatarPuzzleStatus.started;
-    final puzzleIncomplete =
-        context.select((MyPuzzleBloc bloc) => bloc.state.puzzleStatus) ==
-            PuzzleStatus.incomplete;
+    final puzzleIncomplete = context.select((MyPuzzleBloc bloc) => bloc.state.puzzleStatus) == PuzzleStatus.incomplete;
 
-    final movementDuration = status == DashatarPuzzleStatus.loading
-        ? const Duration(milliseconds: 800)
-        : const Duration(milliseconds: 370);
+    final movementDuration = status == DashatarPuzzleStatus.loading ? const Duration(milliseconds: 800) : const Duration(milliseconds: 370);
 
     final canPress = hasStarted && puzzleIncomplete;
 
-    return AudioControlListener(
-      child: AnimatedAlign(
-        alignment: FractionalOffset(
-          (widget.tile.currentPosition.x - 1) / (size - 1),
-          (widget.tile.currentPosition.y - 1) / (size - 1),
+    return AnimatedAlign(
+      alignment: FractionalOffset(
+        (widget.tile.currentPosition.x - 1) / (size - 1),
+        (widget.tile.currentPosition.y - 1) / (size - 1),
+      ),
+      duration: movementDuration,
+      curve: Curves.easeInOut,
+      child: ResponsiveLayoutBuilder(
+        small: (_, child) => SizedBox.square(
+          key: Key('dashatar_puzzle_tile_small_${widget.tile.value}'),
+          dimension: _TileSize.small,
+          child: child,
         ),
-        duration: movementDuration,
-        curve: Curves.easeInOut,
-        child: ResponsiveLayoutBuilder(
-          small: (_, child) => SizedBox.square(
-            key: Key('dashatar_puzzle_tile_small_${widget.tile.value}'),
-            dimension: _TileSize.small,
-            child: child,
-          ),
-          medium: (_, child) => SizedBox.square(
-            key: Key('dashatar_puzzle_tile_medium_${widget.tile.value}'),
-            dimension: _TileSize.medium,
-            child: child,
-          ),
-          large: (_, child) => SizedBox.square(
-            key: Key('dashatar_puzzle_tile_large_${widget.tile.value}'),
-            dimension: _TileSize.large,
-            child: child,
-          ),
-          child: (_) => MouseRegion(
-            onEnter: (_) {
-              if (canPress) {
-                _controller.forward();
-              }
-            },
-            onExit: (_) {
-              if (canPress) {
-                _controller.reverse();
-              }
-            },
-            child: ScaleTransition(
-              key: Key('dashatar_puzzle_tile_scale_${widget.tile.value}'),
-              scale: _scale,
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: canPress
-                    ? () {
-                        context
-                            .read<MyPuzzleBloc>()
-                            .add(TileTapped(widget.tile));
-                        MyAudioPlayer.instance.playTileMove();
-                      }
-                    : null,
-                icon: ServerImage(
-                  imgPath:
-                      '${EasyPuzzleGameController.of(context).puzzleBlockFolderPath}/${widget.tile.value.toString()}.png',
-                ),
+        medium: (_, child) => SizedBox.square(
+          key: Key('dashatar_puzzle_tile_medium_${widget.tile.value}'),
+          dimension: _TileSize.medium,
+          child: child,
+        ),
+        large: (_, child) => SizedBox.square(
+          key: Key('dashatar_puzzle_tile_large_${widget.tile.value}'),
+          dimension: _TileSize.large,
+          child: child,
+        ),
+        child: (_) => MouseRegion(
+          onEnter: (_) {
+            if (canPress) {
+              _controller.forward();
+            }
+          },
+          onExit: (_) {
+            if (canPress) {
+              _controller.reverse();
+            }
+          },
+          child: ScaleTransition(
+            key: Key('dashatar_puzzle_tile_scale_${widget.tile.value}'),
+            scale: _scale,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              onPressed: canPress
+                  ? () {
+                      context.read<MyPuzzleBloc>().add(TileTapped(widget.tile));
+                    }
+                  : null,
+              icon: ServerImage(
+                imgPath: widget.tile.image,
               ),
             ),
           ),
@@ -146,38 +136,30 @@ class MyDashatarPuzzleTileState extends State<MyDashatarPuzzleTile>
 }
 
 class ServerImage extends StatelessWidget {
-  final String imgPath;
+  final Uint8List? imgPath;
+  final String? fullImage;
   final BoxFit? fit;
   final double? width;
   final double? height;
-  const ServerImage(
-      {Key? key, required this.imgPath, this.fit, this.width, this.height})
-      : super(key: key);
+
+  const ServerImage({Key? key, this.imgPath, this.fullImage, this.fit, this.width, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (imgPath.startsWith('http')) {
-      return CachedNetworkImage(
-        imageUrl: imgPath,
-        placeholder: (_, __) => const WallpaperPlaceholder(),
-        errorWidget: (_, __, ___) => const WallpaperPlaceholder(),
-        fit: fit,
-        width: width,
-        height: height,
+    if (fullImage != null) {
+      return Image.asset(
+        fullImage!,
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.fill,
       );
     }
 
-    return Image(
-      image: AssetImage(imgPath),
-      fit: BoxFit.cover,
+    return Image.memory(
+      imgPath!,
+      fit: BoxFit.fill,
       width: double.infinity,
       height: double.infinity,
-      loadingBuilder: (BuildContext context, Widget child,
-          ImageChunkEvent? loadingProgress) {
-        if (loadingProgress == null) return child;
-
-        return const WallpaperPlaceholder();
-      },
     );
   }
 }
