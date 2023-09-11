@@ -72,7 +72,7 @@ class MyDashatarScore extends StatelessWidget {
                   left: imageOffset.dx,
                   top: imageOffset.dy,
                   child: ServerImage(
-                    imgPath: EasyPuzzleGameController.of(context).puzzleFullImg,
+                    fullImage: EasyPuzzleGameController.of(context).puzzleFullImg,
                     height: imageHeight,
                   ),
                 ),

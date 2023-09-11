@@ -1,8 +1,6 @@
-import 'package:easy_puzzle_game/src/dashatar/audio_control/widget/audio_control_listener.dart';
 import 'package:easy_puzzle_game/src/dashatar/bloc/dashatar_puzzle_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/helpers/audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/layout/responsive_layout_builder.dart';
-import 'package:easy_puzzle_game/src/dashatar/my_audio_player.dart';
 import 'package:easy_puzzle_game/src/dashatar/puzzle/bloc/puzzle_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/timer/bloc/timer_bloc.dart';
 import 'package:easy_puzzle_game/src/dashatar/typography/text_styles.dart';
@@ -16,7 +14,6 @@ class MyDashatarCountdown extends StatefulWidget {
   /// {@macro dashatar_countdown}
   const MyDashatarCountdown({
     Key? key,
-    AudioPlayerFactory? audioPlayer,
   }) : super(key: key);
 
   @override
@@ -26,49 +23,43 @@ class MyDashatarCountdown extends StatefulWidget {
 class _MyDashatarCountdownState extends State<MyDashatarCountdown> {
   @override
   Widget build(BuildContext context) {
-    return AudioControlListener(
-      child: BlocListener<MyDashatarPuzzleBloc, MyDashatarPuzzleState>(
-        listener: (context, state) {
-          if (!state.isCountdownRunning) {
-            return;
-          }
+    return BlocListener<MyDashatarPuzzleBloc, MyDashatarPuzzleState>(
+      listener: (context, state) {
+        if (!state.isCountdownRunning) {
+          return;
+        }
 
-          // Play the shuffle sound when the countdown from 3 to 1 begins.
-          if (state.secondsToBegin == 3) {
-            MyAudioPlayer.instance.playShuffle();
-          }
 
-          // Start the puzzle timer when the countdown finishes.
-          if (state.status == DashatarPuzzleStatus.started) {
-            context.read<MyTimerBloc>().add(const MyTimerStarted());
-          }
+        // Start the puzzle timer when the countdown finishes.
+        if (state.status == DashatarPuzzleStatus.started) {
+          context.read<MyTimerBloc>().add(const MyTimerStarted());
+        }
 
-          // Shuffle the puzzle on every countdown tick.
-          if (state.secondsToBegin >= 1 && state.secondsToBegin <= 3) {
-            context.read<MyPuzzleBloc>().add(const PuzzleReset());
-          }
-        },
-        child: ResponsiveLayoutBuilder(
-          small: (_, __) => const SizedBox(),
-          medium: (_, __) => const SizedBox(),
-          large: (_, __) =>
-              BlocBuilder<MyDashatarPuzzleBloc, MyDashatarPuzzleState>(
-            builder: (context, state) {
-              if (!state.isCountdownRunning || state.secondsToBegin > 3) {
-                return const SizedBox();
-              }
+        // Shuffle the puzzle on every countdown tick.
+        if (state.secondsToBegin >= 1 && state.secondsToBegin <= 3) {
+          context.read<MyPuzzleBloc>().add(const PuzzleReset());
+        }
+      },
+      child: ResponsiveLayoutBuilder(
+        small: (_, __) => const SizedBox(),
+        medium: (_, __) => const SizedBox(),
+        large: (_, __) =>
+            BlocBuilder<MyDashatarPuzzleBloc, MyDashatarPuzzleState>(
+              builder: (context, state) {
+                if (!state.isCountdownRunning || state.secondsToBegin > 3) {
+                  return const SizedBox();
+                }
 
-              if (state.secondsToBegin > 0) {
-                return DashatarCountdownSecondsToBegin(
-                  key: ValueKey(state.secondsToBegin),
-                  secondsToBegin: state.secondsToBegin,
-                );
-              } else {
-                return const MyDashatarCountdownGo();
-              }
-            },
-          ),
-        ),
+                if (state.secondsToBegin > 0) {
+                  return DashatarCountdownSecondsToBegin(
+                    key: ValueKey(state.secondsToBegin),
+                    secondsToBegin: state.secondsToBegin,
+                  );
+                } else {
+                  return const MyDashatarCountdownGo();
+                }
+              },
+            ),
       ),
     );
   }

@@ -32,10 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return const EasyPuzzleGameApp(
       title: 'Puzzle',
-      puzzleFullImg:
-          'https://github.com/mhanzla80/easy_puzzle_game/raw/master/puzzle.png',
-      puzzleBlockFolderPath:
-          'https://github.com/mhanzla80/easy_puzzle_game/raw/master/blocks',
+      puzzleFullImg: "assets/who_us.jpg",
       puzzleRowColumn: 4,
     );
   }
